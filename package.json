@@ -2,6 +2,8 @@
   "private": true,
   "devDependencies": {
     "gulp": "^3.8.8",
-    "laravel-elixir": "*"
+    "laravel-elixir": "*",
+    "gulp-file-include": "^0.13.7",
+    "gulp-html-extend": "^1.1.6"
   }
 }
