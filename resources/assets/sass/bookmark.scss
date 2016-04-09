@@ -1,0 +1,89 @@
+﻿@import "constants";
+
+$padding: 16px;
+
+.bookmarks-container {
+	> a {
+		background-image: url(../images/bookpage.png);
+		background-size: cover;
+		background-position: center center;
+		background: white;
+		display: inline-block;
+		margin-bottom: 2em;
+		width: 236px;
+		height: 300px;
+		font-size: 20px;
+		border: 1px solid $color-border-gray;
+		text-decoration: none;
+		color: $color-main;
+		position: relative;
+		box-shadow: #eee 0 0 10px;
+
+		button.remove {
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			appearance: none;
+			z-index: 1;
+			cursor: pointer;
+			background: none;
+			font-size: 16px;
+			border: 0;
+			position: absolute;
+			top: 8px;
+			right: 8px;
+
+			&:hover {
+				background-color: $color-button-hover;
+				color: white;
+			}
+		}
+
+		&:not(:nth-child(4n+1)) {
+			margin-left: 24px;
+		}
+
+		.centered {
+			position: absolute;
+			top: $padding;
+			left: $padding;
+			right: $padding;
+		}
+
+		header {
+			font-weight: bold;
+			display: block;
+		}
+
+		.description {
+			font-size: 16px;
+			margin-top: $padding;
+			-ms-word-break: break-all;
+			word-break: break-all;
+		}
+
+		small {
+			font-size: 16px;
+		}
+
+		.author {
+			position: absolute;
+			left: $padding;
+			bottom: $padding;
+		}
+
+		.date {
+			position: absolute;
+			right: $padding;
+			bottom: $padding;
+		}
+
+		.article-info {
+			position: absolute;
+			top: 100%;
+			margin-top: ($padding - 4px);
+			left: 0;
+			right: 0;
+			text-align: center;
+		}
+	}
+}

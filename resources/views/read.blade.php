@@ -23,7 +23,15 @@
     </div>
     <div class="buttons">
         <a href="#"><i class="icon iconfont">&#xe624;</i></a>
-        <a onclick="Bookmark(this)"><i class="icon iconfont">&#xe647;</i></a>
+        @if ($bookmarked)
+            <a class="active" onclick="Bookmark(this)">
+                <i class="icon iconfont">&#xe647;</i>
+            </a>
+        @else
+            <a onclick="Bookmark(this)">
+                <i class="icon iconfont">&#xe647;</i>
+            </a>
+        @endif
         <a><i class="icon iconfont">&#xe655;</i></a>
         @if ($post->isLiked(Auth::id()))
         <a class="active" onclick="Like(this)">
@@ -74,9 +82,14 @@
             });
         }
         function Bookmark(ctrl) {
-            $.post('{{ route('post.bookmark', $post->id) }}', function (data) {
+            var to = !$(ctrl).hasClass("active");
+            var url = ['{{ route('post.unbookmark', $post->id) }}', '{{ route('post.bookmark', $post->id) }}'][to ? 1 : 0];
+            $.post(url, function (data) {
                 if (data.success)
-                    $(ctrl).addClass("active").removeProp('onclick');
+                    if (to)
+                        $(ctrl).addClass("active");
+                    else
+                        $(ctrl).removeClass("active");
             });
         }
     </script>

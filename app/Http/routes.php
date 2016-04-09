@@ -20,6 +20,12 @@ Route::get('post/{post_id}', [
 	'as' => 'post.view'
 ]);
 
+Route::get('bookmarks', [
+    'middleware' => 'auth',
+    'uses' => 'PostController@bookmarks',
+    'as' => 'post.bookmarks'
+]);
+
 Route::post('post/{post_id}/like', [
 	'middleware' => 'auth', 
 	'uses' => 'PostController@like',
@@ -30,7 +36,17 @@ Route::post('post/{post_id}/unlike', [
 	'uses' => 'PostController@unlike',
 	'as' => 'post.unlike'
 ]);
-Route::post('post/{post_id}/bookmark', ['middleware' => 'auth', 'uses' => 'PostController@bookmark', 'as' => 'post.bookmark']);
+Route::post('post/{post_id}/bookmark', [
+	'middleware' => 'auth',
+	'uses' => 'PostController@bookmark',
+	'as' => 'post.bookmark'
+]);
+Route::post('post/{post_id}/unbookmark', [
+	'middleware' => 'auth',
+	'uses' => 'PostController@unbookmark',
+	'as' => 'post.unbookmark'
+]);
+
 Route::post('post', ['middleware' => 'auth', 'uses' => 'PostController@create']);
 Route::get('post/{post_id}/ancestor', 'PostController@getAncestors');
 

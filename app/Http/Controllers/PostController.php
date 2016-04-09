@@ -5,6 +5,7 @@ use App\Bookmark;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Carbon;
 use Validator;
 use Config;
 
@@ -24,7 +25,8 @@ class PostController extends Controller {
 	{
 		$post = Post::withContent()->with('childPosts', 'article', 'user')->findOrFail($post_id);
 		$post->loadAncestors(Config::get("config.default_history_count"));
-		return view("read", compact('post'));
+		$bookmarked = Bookmark::findUniqueByUserAndPost(Auth::user(), $post);
+		return view("read", compact('post', 'bookmarked'));
 	}
 
 	public function create(Request $request)
@@ -61,6 +63,22 @@ class PostController extends Controller {
 			return response()->json(['success'=>true]);
 		}
 		return response()->json(['success'=>false, 'data'=>1]);
+	}
+
+	public function unbookmark(Request $request, $post_id)
+	{
+		$post = Post::find($post_id);
+		if ($post) {
+			$bookmark = Bookmark::deleteUniqueByUserAndPost(Auth::user(), $post);
+			return response()->json(['success'=>true]);
+		}
+		return response()->json(['success'=>false, 'data'=>1]);
+	}
+
+	public function bookmarks()
+	{
+		$user = Auth::user()->load('bookmarks.post', 'bookmarks.article.rootPost');
+		return view('bookmarks', ['bookmarks' => $user->bookmarks]);
 	}
 
 	public function like($post_id)

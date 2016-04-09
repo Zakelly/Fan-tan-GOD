@@ -51,4 +51,13 @@ class Bookmark extends Model {
 		return true;
 	}
 
+	public function post()
+	{
+		return $this->belongsTo('App\Post', 'post_id');
+	}
+
+	public function article()
+	{
+		return $this->belongsTo('App\Article', 'article_id');
+	}
 }
