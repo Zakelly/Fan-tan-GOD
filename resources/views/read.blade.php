@@ -48,6 +48,7 @@
             <header>{{ $post->title }}</header>
             <div class="meta-info">
                 <label>作者：</label>
+                <a class="global-avatar"><img src="http://i6.qhimg.com/t0180ceee9e6e48f327.png"></a>
                 <span>{{ $post->user->username }}</span>
                 <label>发布时间：</label>
                 <span>{{ $post->created_at }}</span>

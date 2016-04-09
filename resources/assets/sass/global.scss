@@ -85,3 +85,16 @@ body {
 		}
 	}
 }
+
+.global-avatar {
+	width: 45px;
+    display: inline-block;
+    height: 45px;
+    overflow: hidden;
+    border-radius: 22.5px;
+    vertical-align: middle;
+	>img {
+		width: 100%;
+		height: 100%;
+	}
+}
