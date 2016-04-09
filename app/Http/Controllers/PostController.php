@@ -4,6 +4,7 @@ use App\Post;
 use App\Bookmark;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 
 class PostController extends Controller {
 
@@ -19,15 +20,19 @@ class PostController extends Controller {
 	
 	public function get($id)
 	{
+		$post = Post::withContent()->withChildPosts()->findOrFail($id);
 		return json_encode([
 			'success' => true,
-			'data' => Post::findOrFail($id)
+			'data' => $post
 		]);
 	}
 
 	public function create(Request $request)
 	{
-		$post = Post::create($request->all());
+		$input = $request->all();
+		$input['user_id'] = Auth::id();
+
+		$post = Post::create($input);
 		return json_encode([
 			'success' => true,
 			'data' => $post

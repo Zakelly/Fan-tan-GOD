@@ -15,9 +15,10 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::post('post', 'PostController@create');
 Route::get('post/{id}', 'PostController@get');
+
 Route::post('post/{post_id}/bookmark', ['middleware' => 'auth', 'uses' => 'PostController@bookmark']);
+Route::post('post', ['middleware' => 'auth', 'uses' => 'PostController@create']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

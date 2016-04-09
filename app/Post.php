@@ -1,6 +1,8 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use PhpSpec\Exception\Exception;
+use Config;
 
 class Post extends Model {
 
@@ -39,6 +41,18 @@ class Post extends Model {
 		'view_count', 'like_count'
 	];
 
+	public static function create(array $attributes)
+	{
+		if ($attributes['parent_post_id'] > 0)
+		{
+			$parent = Post::findOrFail($attributes['parent_post_id']);
+			if (++$parent->child_count > Config::get('config.max_child_count'))
+				throw new Exception("max count exceeded");
+			$parent->save();
+		}
+		return parent::create($attributes);
+	}
+
 	public static function boot()
 	{
 		parent::boot();
@@ -59,7 +73,7 @@ class Post extends Model {
 
 	public function scopeWithContent()
 	{
-		return $this->select('*');
+		return $this->addSelect('content');
 	}
 
 	public function scopeWithChildPosts()
@@ -74,7 +88,7 @@ class Post extends Model {
 
 	public function childPosts()
 	{
-		return $this->hasMany('App\Post', 'id', 'parent_post_id');
+		return $this->hasMany('App\Post', 'parent_post_id', 'id');
 	}
 
 	public function user()
