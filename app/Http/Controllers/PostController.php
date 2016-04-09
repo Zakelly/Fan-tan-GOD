@@ -62,4 +62,21 @@ class PostController extends Controller {
 		}
 		return response()->json(['success'=>false, 'data'=>1]);
 	}
+
+	public function getAncestors(Request $request, $post_id)
+	{
+		$count = $request->get('count',0);
+		$post = Post::find($post_id);
+		$p = $post;
+		if ($post) {
+			for($i = 0 ; $i < $count ; $i ++) {
+				$p->load('parentPost');
+				if (!$p->parentPost)
+					break;
+				$p = $p->parentPost;
+			}
+			return response()->json(['success'=>true, 'data'=>$post]);
+		}
+		return response()->json(['success'=>false, 'data'=>1]);
+	}
 }
