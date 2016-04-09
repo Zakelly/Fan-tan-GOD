@@ -46,9 +46,13 @@ class Post extends Model {
 		if ($attributes['parent_post_id'] > 0)
 		{
 			$parent = Post::findOrFail($attributes['parent_post_id']);
+			if ($parent->terminal)
+				throw new Exception("trying to append to terminal node");
 			if (++$parent->child_count > Config::get('config.max_child_count'))
 				throw new Exception("max count exceeded");
 			$parent->save();
+			
+			$attributes['article_id'] = $parent->article_id;
 		}
 		return parent::create($attributes);
 	}

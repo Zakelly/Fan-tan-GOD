@@ -21,7 +21,7 @@ class PostController extends Controller {
 	public function get($id)
 	{
 		$post = Post::withContent()->withChildPosts()->findOrFail($id);
-		return json_encode([
+		return response()->json([
 			'success' => true,
 			'data' => $post
 		]);
@@ -29,11 +29,18 @@ class PostController extends Controller {
 
 	public function create(Request $request)
 	{
+		$this->validate($request, [
+			'parent_post_id' => 'required|min:1|integer',
+			'title' => 'required|max:50',
+			'content' => 'required|max:20000',
+			'terminal' => 'boolean'
+		]);
+
 		$input = $request->all();
 		$input['user_id'] = Auth::id();
 
 		$post = Post::create($input);
-		return json_encode([
+		return response()->json([
 			'success' => true,
 			'data' => $post
 		]);
