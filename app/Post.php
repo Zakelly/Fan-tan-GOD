@@ -62,18 +62,28 @@ class Post extends Model {
 		return $this->select('*');
 	}
 
+	public function scopeWithChildPosts()
+	{
+		return $this->with('childPosts');
+	}
+
 	public function parentPost()
 	{
-		return $this->belongsTo(Post::class, 'parent_post_id', 'id');
+		return $this->belongsTo('App\Post', 'parent_post_id', 'id');
+	}
+
+	public function childPosts()
+	{
+		return $this->hasMany('App\Post', 'id', 'parent_post_id');
 	}
 
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'user_id', 'id');
+		return $this->belongsTo('App\User', 'user_id', 'id');
 	}
 
 	public function article()
 	{
-		return $this->belongsTo(Article::class, 'article_id', 'id');
+		return $this->belongsTo('App\Article', 'article_id', 'id');
 	}
 }

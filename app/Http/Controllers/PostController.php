@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller {
 
@@ -14,8 +15,20 @@ class PostController extends Controller {
 		// $this->middleware('auth');
 	}
 	
-	public function create()
+	public function get($id)
 	{
-		
+		return json_encode([
+			'success' => true,
+			'data' => Post::findOrFail($id)
+		]);
+	}
+	
+	public function create(Request $request)
+	{
+		$post = Post::create($request->all());
+		return json_encode([
+			'success' => true,
+			'data' => $post
+		]);
 	}
 }
