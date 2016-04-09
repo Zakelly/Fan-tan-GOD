@@ -22,6 +22,7 @@
 <body>
 	<div class="nav">
 		<div class="content-wrapper">
+			<a class="logo"><img src="./images/logo_formal4.png"></a>
 			<div>
 				<a href="/">首页</a>
 				<a href="{{ route('article.create') }}">开篇</a>
