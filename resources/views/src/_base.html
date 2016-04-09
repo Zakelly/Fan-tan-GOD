@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@yield('title')</title>
+	<title>test</title>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -12,17 +12,15 @@
 		<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
-	@section('head')
-	<link href="{{ asset('/css/global.css') }}" rel="stylesheet" />
-	<script src="{{ asset('/libs/jquery-2.3.3.min.js') }}"></script>
-	<script src="{{ asset('/js/global.js') }}"></script>
-	@show
+
+	<link href="./css/global.css" rel="stylesheet" />
+	<script src="./libs/jquery-2.3.3.min.js"></script>
+	<script src="./js/global.js"></script>
+	<!-- @@placeholder = head -->
 </head>
 <body>
 	<div class="page-content">
-	@section('body')
-
-	@show
+	<!-- @@placeholder = body -->
 	</div>
 </body>
 </html>
