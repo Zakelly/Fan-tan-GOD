@@ -8,7 +8,6 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class Article extends Model {
 
-
 	protected $table = 'articles';
 
 	protected $fillable = ['root_post_id'];
