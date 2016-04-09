@@ -14,4 +14,14 @@ class Tag extends Model {
 
 	protected $hidden = [];
 
+	public static function findOrCreateUniqueByName($name)
+	{
+		$tag = self::where(['name' => $name])->first();
+		if (!$tag)
+		{
+			$tag = self::create(['name' => $name]);
+		}
+		return $tag;
+	}
+
 }
