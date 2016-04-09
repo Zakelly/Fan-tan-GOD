@@ -12,13 +12,13 @@ $padding: 24px;
 		display: inline-block;
 		margin-bottom: 2em;
 		width: 236px;
-		height: 288px;
+		height: 313px;
 		font-size: 20px;
 		text-decoration: none;
 		color: $color-main;
 		position: relative;
-		border-top-right-radius: 50px;
-		border-bottom-right-radius: 50px;
+		border-top-right-radius: 25px;
+		border-bottom-right-radius: 25px;
 
 		&:hover {
 			box-shadow: #eee 0 0 10px;

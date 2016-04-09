@@ -22,17 +22,24 @@
 <body>
 	<div class="nav">
 		<div class="content-wrapper">
-			<a class="logo"><img src="./images/logo_formal4.png"></a>
+			<a class="logo"><img src="/images/logo_formal4.png"></a>
 			<div class="left">
 				<a href="/">首页</a>
 				<a href="{{ route('article.create') }}">开篇</a>
 				<a href="{{ route('post.bookmarks') }}">书签</a>
 			</div>
+			@if (isset($user))
 			<div class="right">
 				<a class="avatar"><img src="http://i6.qhimg.com/t0180ceee9e6e48f327.png"></a>
 				<a>{{ $user->username }}</a>
-				<a>注销</a>
+				<a href="/auth/logout">注销</a>
 			</div>
+			@else
+			<div class="right">
+				<a href="/auth/login">登录</a>
+				<a href="/auth/register">注册</a>
+			</div>
+			@endif
 		</div>
 	</div>
 	<div class="page-content">
