@@ -20,7 +20,10 @@ class ArticleController extends Controller {
 
 	public function create(Request $request)
 	{
-		$post = Post::create($request->all());
+		$input = $request->all();
+		$input['user_id'] = Auth::id();
+
+		$post = Post::create($input);
 		$article = Article::create(['root_post_id' => $post->id]);
 		$post->article_id = $article->id;
 		$post->save();
