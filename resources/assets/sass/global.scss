@@ -37,7 +37,11 @@ body {
 		margin: 0 auto;
 	}
 	a:not(.avatar) {
+		display: inline-block;
 		width: 80px;
+		color: $color-main;
+		text-align: center;
+		text-decoration: none;
 	}
 	.right {
 		position: absolute;
