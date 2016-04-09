@@ -68,9 +68,9 @@ class Post extends Model {
 		Post::saving(function ($post)
 		{
 			if ($post->content) {
-				$post->length = strlen($post->content);
+				$post->length = mb_strlen($post->content);
 				if (!$post->description || strlen($post->description) == 0)
-					$post->description = substr($post->content, 0, Config::get("config.description_length"));
+					$post->description = mb_substr($post->content, 0, Config::get("config.description_length"));
 			}
 		});
 	}
@@ -131,7 +131,6 @@ class Post extends Model {
 	
 	public function loadAncestors($count)
 	{
-		array_push($this->ancestors, $this->article->rootPost);
 		$p = $this;
 		for($i = 0; $i < $count; $i++) {
 			$p->load('parentPost');
@@ -140,7 +139,8 @@ class Post extends Model {
 			array_push($this->ancestors, $p);
 			$p = $p->parentPost;
 		}
-		array_reverse($this->ancestors);
+		array_push($this->ancestors, $this->article->rootPost);
+		$this->ancestors = array_reverse($this->ancestors);
 		return $this;
 	}
 }
