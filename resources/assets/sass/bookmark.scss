@@ -3,6 +3,8 @@
 $padding: 24px;
 
 .bookmarks-container {
+	padding-top: 20px;
+
 	> a {
 		background-image: url(../images/bookmark.png);
 		background-size: cover;
@@ -10,11 +12,17 @@ $padding: 24px;
 		display: inline-block;
 		margin-bottom: 2em;
 		width: 236px;
-		height: 300px;
+		height: 288px;
 		font-size: 20px;
 		text-decoration: none;
 		color: $color-main;
 		position: relative;
+		border-top-right-radius: 50px;
+		border-bottom-right-radius: 50px;
+
+		&:hover {
+			box-shadow: #eee 0 0 10px;
+		}
 
 		button.remove {
 			-moz-appearance: none;
@@ -22,36 +30,24 @@ $padding: 24px;
 			appearance: none;
 			z-index: 1;
 			cursor: pointer;
-			background: none;
+			background: url(../images/close.png) no-repeat no-repeat;
+			background-size: contain;
 			border: 0;
 			height: 20px;
 			width: 20px;
 			display: inline-block;
-			border-radius: 50%;
 			vertical-align: middle;
-			position: relative;
-
-			&:before {
-				content: "×";
-				font-size: 24px;
-				top: 50%;
-				left: 50%;
-				position: absolute;
-				-moz-transform: translate(-50%, -50%);
-				-ms-transform: translate(-50%, -50%);
-				-o-transform: translate(-50%, -50%);
-				-webkit-transform: translate(-50%, -50%);
-				transform: translate(-50%, -50%);
-			}
 
 			&:hover {
-				background-color: $color-button-hover;
-				color: white;
+				-moz-filter: brightness(1.2);
+				-ms-filter: brightness(1.2);
+				-webkit-filter: brightness(1.2);
+				filter: brightness(1.2);
 			}
 		}
 
 		&:not(:nth-child(4n+1)) {
-			margin-left: 24px;
+			margin-left: 158px;
 		}
 
 		.centered {

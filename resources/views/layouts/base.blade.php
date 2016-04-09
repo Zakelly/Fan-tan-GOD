@@ -23,7 +23,7 @@
 	<div class="nav">
 		<div class="content-wrapper">
 			<a class="logo"><img src="./images/logo_formal4.png"></a>
-			<div>
+			<div class="left">
 				<a href="/">首页</a>
 				<a href="{{ route('article.create') }}">开篇</a>
 				<a href="{{ route('post.bookmarks') }}">书签</a>
