@@ -201,6 +201,12 @@
 
 	header {
 		position: relative;
+		white-space: nowrap;
+		overflow: hidden;
+		-ms-text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		text-overflow: ellipsis;
+
 		&:before {
 			content: "";
 			top: 50%;
@@ -209,12 +215,14 @@
 			border-bottom: 1px solid gray;
 			position: absolute;
 		}
+
 		span {
 			position: relative;
 			z-index: 1;
 			background-color: $color-background;
 			padding: 0 1em;
 		}
+
 		padding: 1em;
 		font-weight: bold;
 	}
