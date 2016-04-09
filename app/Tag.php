@@ -12,7 +12,7 @@ class Tag extends Model {
 
 	protected $fillable = ['name'];
 
-	protected $hidden = [];
+	protected $hidden = ['pivot'];
 
 	public static function findOrCreateUniqueByName($name)
 	{

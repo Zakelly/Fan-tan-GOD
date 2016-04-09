@@ -5,6 +5,7 @@ use App\Bookmark;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Validator;
 
 class PostController extends Controller {
 
@@ -18,7 +19,7 @@ class PostController extends Controller {
 		// $this->middleware('auth');
 	}
 	
-	public function get($id)
+	public function get($post_id)
 	{
 		$post = Post::withContent()->withChildPosts()->findOrFail($id);
 		return response()->json([
@@ -29,12 +30,18 @@ class PostController extends Controller {
 
 	public function create(Request $request)
 	{
-		$this->validate($request, [
+		$v = Validator::make($request->all(), [
 			'parent_post_id' => 'required|min:1|integer',
 			'title' => 'required|max:50',
 			'content' => 'required|max:20000',
 			'terminal' => 'boolean'
 		]);
+
+		if ($v->fails())
+			return response()->json([
+				'success' => false,
+				'data' => 0
+			]);
 
 		$input = $request->all();
 		$input['user_id'] = Auth::id();

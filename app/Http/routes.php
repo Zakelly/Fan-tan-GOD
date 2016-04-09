@@ -15,12 +15,14 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::get('post/{id}', 'PostController@get');
+Route::get('post/{post_id}', 'PostController@get');
 
 Route::post('post/{post_id}/bookmark', ['middleware' => 'auth', 'uses' => 'PostController@bookmark']);
 Route::post('post', ['middleware' => 'auth', 'uses' => 'PostController@create']);
 
-Route::post('article', 'ArticleController@create');
+Route::post('article', ['middleware' => 'auth', 'uses' => 'ArticleController@create']);
+Route::get('article/{article_id}', 'ArticleController@get');
+Route::post('article/{article_id}/tag', ['middleware' => 'auth', 'uses' => 'ArticleController@addTag']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
