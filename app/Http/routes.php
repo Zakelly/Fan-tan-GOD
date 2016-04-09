@@ -19,6 +19,7 @@ Route::get('post/{post_id}', 'PostController@get');
 
 Route::post('post/{post_id}/bookmark', ['middleware' => 'auth', 'uses' => 'PostController@bookmark']);
 Route::post('post', ['middleware' => 'auth', 'uses' => 'PostController@create']);
+Route::get('post/{post_id}/ancestor', 'PostController@getAncestors');
 
 Route::post('article', ['middleware' => 'auth', 'uses' => 'ArticleController@create']);
 Route::get('article/{article_id}', 'ArticleController@get');
