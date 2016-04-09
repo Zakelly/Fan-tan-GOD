@@ -1,4 +1,6 @@
-﻿form {
+﻿@import "constants";
+
+form {
 	.success, .fail {
 		display: none;
 	}
@@ -13,5 +15,5 @@
 
 body {
 	font-family: 'Microsoft YaHei';
-	background: rgb(255,255,247);
+	background: $color-background;
 }
