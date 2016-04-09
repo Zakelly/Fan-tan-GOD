@@ -71,7 +71,6 @@ class PostController extends Controller {
 		$post = Post::create($input);
 		return response()->json([
 			'success' => true,
-			'data' => $post,
 			'redirect' => route('post.view', $post->id)
 		]);
 	}
@@ -107,7 +106,7 @@ class PostController extends Controller {
 		$post = Post::find($post_id);
 		if ($post) {
 			$post->setLike(Auth::id(), true);
-			return response()->json(['success'=>true, 'data'=>$post]);
+			return response()->json(['success'=>true]);
 		}
 		return response()->json(['success'=>false, 'data'=>1]);
 	}
@@ -117,7 +116,7 @@ class PostController extends Controller {
 		$post = Post::find($post_id);
 		if ($post) {
 			$post->setLike(Auth::id(), false);
-			return response()->json(['success'=>true, 'data'=>$post]);
+			return response()->json(['success'=>true]);
 		}
 		return response()->json(['success'=>false, 'data'=>1]);
 	}
@@ -128,7 +127,7 @@ class PostController extends Controller {
 		$post = Post::find($post_id);
 		if ($post) {
 			$post->loadAncestors($count);
-			return response()->json(['success'=>true, 'data'=>$post]);
+			return response()->json(['success'=>true]);
 		}
 		return response()->json(['success'=>false, 'data'=>1]);
 	}

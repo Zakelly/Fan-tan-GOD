@@ -38,7 +38,6 @@ class ArticleController extends Controller {
 		$post->save();
 		return response()->json([
 			'success' => true,
-			'data' => $post,
 			'redirect' => route('post.view', $post->id)
 		]);
 	}
