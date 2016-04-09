@@ -33,7 +33,7 @@ class Post extends Model {
 	 *
 	 * @var array
 	 */
-	protected $hidden = [];
+	protected $hidden = ['likers'];
 
 	private static $defaultFetch = [
 		'id', 'user_id', 'parent_post_id',
@@ -86,6 +86,25 @@ class Post extends Model {
 	{
 		return $query->with('childPosts');
 	}
+	
+	public function isLiked($user_id)
+	{
+		return $this->likers->contains($user_id);
+	}
+	
+	public function setLike($user_id, $to)
+	{
+		if ($this->isLiked($user_id) == $to)
+			return;
+		if ($to) {
+			$this->likers()->attach($user_id);
+			$this->like_count++;
+		} else {
+			$this->likers()->detach($user_id);
+			$this->like_count--;
+		}
+		$this->save();
+	}
 
 	public function parentPost()
 	{
@@ -95,6 +114,11 @@ class Post extends Model {
 	public function childPosts()
 	{
 		return $this->hasMany('App\Post', 'parent_post_id', 'id');
+	}
+	
+	public function likers()
+	{
+		return $this->belongsToMany('App\User', 'post_like_relations', 'post_id', 'user_id');
 	}
 
 	public function user()

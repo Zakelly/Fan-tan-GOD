@@ -22,7 +22,7 @@ class PostController extends Controller {
 	
 	public function get($post_id)
 	{
-		$post = Post::withContent()->withChildPosts()->findOrFail($id);
+		$post = Post::withContent()->withChildPosts()->findOrFail($post_id);
 		return response()->json([
 			'success' => true,
 			'data' => $post
@@ -61,6 +61,26 @@ class PostController extends Controller {
 		if ($post) {
 			$bookmark = Bookmark::createUniqueByUserAndPost(Auth::user(), $post);
 			return response()->json(['success'=>true]);
+		}
+		return response()->json(['success'=>false, 'data'=>1]);
+	}
+
+	public function like($post_id)
+	{
+		$post = Post::find($post_id);
+		if ($post) {
+			$post->setLike(Auth::id(), true);
+			return response()->json(['success'=>true, 'data'=>$post]);
+		}
+		return response()->json(['success'=>false, 'data'=>1]);
+	}
+
+	public function unlike($post_id)
+	{
+		$post = Post::find($post_id);
+		if ($post) {
+			$post->setLike(Auth::id(), false);
+			return response()->json(['success'=>true, 'data'=>$post]);
 		}
 		return response()->json(['success'=>false, 'data'=>1]);
 	}
