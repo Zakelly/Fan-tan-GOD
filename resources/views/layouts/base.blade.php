@@ -30,7 +30,7 @@
 			</div>
 			@if (isset($user))
 			<div class="right">
-				<a class="avatar"><img src="http://i6.qhimg.com/t0180ceee9e6e48f327.png"></a>
+				<a class="avatar"><img src="{{ $user->avatar }}"></a>
 				<a>{{ $user->username }}</a>
 				<a href="/auth/logout">注销</a>
 			</div>
