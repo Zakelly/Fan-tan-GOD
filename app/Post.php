@@ -23,6 +23,7 @@ class Post extends Model {
 		'parent_post_id',
 		'article_id',
 		'title',
+		'description',
 		'content',
 		'terminal'
 	];
@@ -65,7 +66,8 @@ class Post extends Model {
 		{
 			if ($post->content) {
 				$post->length = mb_strlen($post->content);
-				$post->description = substr($post->content, 0, 20);
+				if (!$post->description || strlen($post->description) == 0)
+					$post->description = substr($post->content, 0, Config::get("config.description_length"));
 			}
 		});
 	}

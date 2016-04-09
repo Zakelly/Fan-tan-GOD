@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Validator;
+use Config;
 
 class PostController extends Controller {
 
@@ -33,6 +34,7 @@ class PostController extends Controller {
 		$v = Validator::make($request->all(), [
 			'parent_post_id' => 'required|min:1|integer',
 			'title' => 'required|max:50',
+			'description' => 'max:'.Config::get('description_length'),
 			'content' => 'required|max:20000',
 			'terminal' => 'boolean'
 		]);
