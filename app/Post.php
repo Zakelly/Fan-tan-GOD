@@ -34,12 +34,14 @@ class Post extends Model {
 	 * @var array
 	 */
 	protected $hidden = ['likers'];
+	
+	public $ancestors = [];
 
 	private static $defaultFetch = [
 		'id', 'user_id', 'parent_post_id',
 		'article_id', 'title', 'description',
 		'length', 'terminal', 'child_count',
-		'view_count', 'like_count'
+		'view_count', 'like_count', 'created_at'
 	];
 
 	public static function create(array $attributes)
@@ -80,11 +82,6 @@ class Post extends Model {
 	public function scopeWithContent($query)
 	{
 		return $query->addSelect('content');
-	}
-
-	public function scopeWithChildPosts($query)
-	{
-		return $query->with('childPosts');
 	}
 	
 	public function isLiked($user_id)
@@ -129,5 +126,20 @@ class Post extends Model {
 	public function article()
 	{
 		return $this->belongsTo('App\Article', 'article_id', 'id');
+	}
+	
+	public function loadAncestors($count)
+	{
+		array_push($this->ancestors, $this->article->rootPost);
+		$p = $this;
+		for($i = 0; $i < $count; $i++) {
+			$p->load('parentPost');
+			if (!$p->parentPost)
+				break;
+			array_push($this->ancestors, $p);
+			$p = $p->parentPost;
+		}
+		array_reverse($this->ancestors);
+		return $this;
 	}
 }

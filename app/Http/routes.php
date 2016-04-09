@@ -15,7 +15,10 @@ Route::get('/', 'HomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::get('post/{post_id}', 'PostController@get');
+Route::get('post/{post_id}', [
+	'uses' => 'PostController@get',
+	'as' => 'post.view'
+]);
 
 Route::post('post/{post_id}/like', ['middleware' => 'auth', 'uses' => 'PostController@like']);
 Route::post('post/{post_id}/unlike', ['middleware' => 'auth', 'uses' => 'PostController@unlike']);

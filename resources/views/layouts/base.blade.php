@@ -14,7 +14,7 @@
 
 	@section('head')
 	<link href="{{ asset('/css/global.css') }}" rel="stylesheet" />
-	<script src="{{ asset('/libs/jquery-2.3.3.min.js') }}"></script>
+	<script src="{{ asset('/libs/jquery-2.2.3.min.js') }}"></script>
 	<script src="{{ asset('/js/global.js') }}"></script>
 	@show
 </head>

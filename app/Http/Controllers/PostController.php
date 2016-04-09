@@ -22,11 +22,9 @@ class PostController extends Controller {
 	
 	public function get($post_id)
 	{
-		$post = Post::withContent()->withChildPosts()->findOrFail($post_id);
-		return response()->json([
-			'success' => true,
-			'data' => $post
-		]);
+		$post = Post::withContent()->with('childPosts', 'article', 'user')->findOrFail($post_id);
+		$post->loadAncestors(Config::get("config.default_history_count"));
+		return view("read", compact('post'));
 	}
 
 	public function create(Request $request)
@@ -87,16 +85,10 @@ class PostController extends Controller {
 
 	public function getAncestors(Request $request, $post_id)
 	{
-		$count = $request->get('count',0);
+		$count = $request->get('count', Config::get("config.default_history_count"));
 		$post = Post::find($post_id);
-		$p = $post;
 		if ($post) {
-			for($i = 0 ; $i < $count ; $i ++) {
-				$p->load('parentPost');
-				if (!$p->parentPost)
-					break;
-				$p = $p->parentPost;
-			}
+			$post->loadAncestors($count);
 			return response()->json(['success'=>true, 'data'=>$post]);
 		}
 		return response()->json(['success'=>false, 'data'=>1]);
