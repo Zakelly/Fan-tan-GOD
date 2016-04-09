@@ -56,7 +56,8 @@ class Post extends Model {
 			$parent->save();
 			
 			$attributes['article_id'] = $parent->article_id;
-		}
+		} else
+			$attributes['article_id'] = 0;
 		return parent::create($attributes);
 	}
 
@@ -67,7 +68,7 @@ class Post extends Model {
 		Post::saving(function ($post)
 		{
 			if ($post->content) {
-				$post->length = mb_strlen($post->content);
+				$post->length = strlen($post->content);
 				if (!$post->description || strlen($post->description) == 0)
 					$post->description = substr($post->content, 0, Config::get("config.description_length"));
 			}
