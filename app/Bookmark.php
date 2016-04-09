@@ -15,13 +15,19 @@ class Bookmark extends Model {
 
 	protected $hidden = ['created_at'];
 
-	public static function createUniqueByUserAndPost($user, $post)
+	public static function findUniqueByUserAndPost($user, $post)
 	{
 		$bookmark = self::where([
 			'user_id' => $user->id,
 			'post_id' => $post->id,
 			'article_id' => $post->article_id
 		])->first();
+		return $bookmark;
+	}
+
+	public static function createUniqueByUserAndPost($user, $post)
+	{
+		$bookmark = self::findUniqueByUserAndPost($user, $post);
 		if($bookmark) {
 			$bookmark->touch();
 		}
@@ -34,6 +40,15 @@ class Bookmark extends Model {
 		}
 		$bookmark->save();
 		return $bookmark;
+	}
+
+	public static function deleteUniqueByUserAndPost($user, $post)
+	{
+		$bookmark = self::findUniqueByUserAndPost($user, $post);
+		if($bookmark) {
+			$bookmark->delete();
+		}
+		return true;
 	}
 
 }
