@@ -5,5 +5,8 @@
     "laravel-elixir": "*",
     "gulp-file-include": "^0.13.7",
     "gulp-html-extend": "^1.1.6"
+  },
+  "dependencies": {
+    "gulp-minify-css": "^1.2.4"
   }
 }
