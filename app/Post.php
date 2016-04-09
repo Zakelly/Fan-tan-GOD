@@ -71,14 +71,14 @@ class Post extends Model {
 		return parent::newQuery()->select(Post::$defaultFetch);
 	}
 
-	public function scopeWithContent()
+	public function scopeWithContent($query)
 	{
-		return $this->addSelect('content');
+		return $query->addSelect('content');
 	}
 
-	public function scopeWithChildPosts()
+	public function scopeWithChildPosts($query)
 	{
-		return $this->with('childPosts');
+		return $query->with('childPosts');
 	}
 
 	public function parentPost()
