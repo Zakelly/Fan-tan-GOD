@@ -1,23 +1,20 @@
 ﻿@import "constants";
 
-$padding: 16px;
+$padding: 24px;
 
 .bookmarks-container {
 	> a {
-		background-image: url(../images/bookpage.png);
+		background-image: url(../images/bookmark.png);
 		background-size: cover;
 		background-position: center center;
-		background: white;
 		display: inline-block;
 		margin-bottom: 2em;
 		width: 236px;
 		height: 300px;
 		font-size: 20px;
-		border: 1px solid $color-border-gray;
 		text-decoration: none;
 		color: $color-main;
 		position: relative;
-		box-shadow: #eee 0 0 10px;
 
 		button.remove {
 			-moz-appearance: none;
@@ -26,11 +23,26 @@ $padding: 16px;
 			z-index: 1;
 			cursor: pointer;
 			background: none;
-			font-size: 16px;
 			border: 0;
-			position: absolute;
-			top: 8px;
-			right: 8px;
+			height: 20px;
+			width: 20px;
+			display: inline-block;
+			border-radius: 50%;
+			vertical-align: middle;
+			position: relative;
+
+			&:before {
+				content: "×";
+				font-size: 24px;
+				top: 50%;
+				left: 50%;
+				position: absolute;
+				-moz-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				-o-transform: translate(-50%, -50%);
+				-webkit-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+			}
 
 			&:hover {
 				background-color: $color-button-hover;
@@ -73,7 +85,7 @@ $padding: 16px;
 
 		.date {
 			position: absolute;
-			right: $padding;
+			right: $padding + 8px;
 			bottom: $padding;
 		}
 

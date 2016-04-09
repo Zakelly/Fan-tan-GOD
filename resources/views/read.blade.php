@@ -14,7 +14,7 @@
             <span>阅读轨迹</span>
         </header>
         @foreach ($post->ancestors as $ancestor)
-            <a {{ $ancestor->id == $post->id ? 'class="active"' : '' }}
+            <a class="{{ $ancestor->id == $post->id ? 'active' : '' }}"
                href="{{ route('post.view', $ancestor->id) }}">
                 <span class="title">{{ $ancestor->title }}</span>
                 <p class="description">{{ $ancestor->description }}</p>
@@ -51,6 +51,8 @@
                 <span>{{ $post->user->username }}</span>
                 <label>发布时间：</label>
                 <span>{{ $post->created_at }}</span>
+                <label>点赞量：</label>
+                <span>{{ $post->like_count }}</span>
             </div>
         </div>
         <div class="post-content">{{ $post->content }}</div>
