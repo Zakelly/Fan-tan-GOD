@@ -48,7 +48,7 @@
             <header>{{ $post->title }}</header>
             <div class="meta-info">
                 <label>作者：</label>
-                <a class="global-avatar"><img src="{{ $post->user->avatar }}"></a>
+                <a class="global-avatar"><img src="{{ $post->user->avatar or '/images/36.pic.jpg' }}"></a>
                 <span>{{ $post->user->username }}</span>
                 <label>发布时间：</label>
                 <span>{{ $post->created_at }}</span>
