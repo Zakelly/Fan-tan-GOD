@@ -5,7 +5,7 @@
 @section('head')
     @parent
     <link href="{{ asset('/css/read.css') }}" rel="stylesheet" />
-@stop
+    @stop
 
 @section('body')
     @parent
@@ -32,7 +32,7 @@
                 <i class="icon iconfont">&#xe647;</i>
             </a>
         @endif
-        <a><i class="icon iconfont">&#xe655;</i></a>
+        <a href="{{ route('post.create', $post->id) }}"><i class="icon iconfont">&#xe655;</i></a>
         @if ($post->isLiked(Auth::id()))
         <a class="active" onclick="Like(this)">
             <i class="icon iconfont">&#xe982;</i>
@@ -65,7 +65,7 @@
                 <p class="description">{{ $child->description }}</p>
             </a>
         @endforeach
-        <a class="new-choice" href="#">
+        <a class="new-choice" href="{{ route('post.create', $post->id) }}">
             <span class="title"><i class="icon iconfont">&#xe655;</i>续写新故事</span>
         </a>
     </div>
@@ -93,4 +93,4 @@
             });
         }
     </script>
-@stop
+    @stop

@@ -8,6 +8,7 @@ use DB;
 use Carbon;
 use Validator;
 use Config;
+use View;
 
 class PostController extends Controller {
 
@@ -19,6 +20,7 @@ class PostController extends Controller {
 	public function __construct()
 	{
 		// $this->middleware('auth');
+		View::share(['user' => Auth::user()]);
 	}
 	
 	public function get($post_id)
@@ -29,12 +31,20 @@ class PostController extends Controller {
 		return view("read", compact('post', 'bookmarked'));
 	}
 
-	public function create(Request $request)
+	public function getCreate($parent_post_id)
+	{
+		$post = Post::find($parent_post_id);
+		if (!$post)
+			return redirect('/');
+		$post->loadAncestors(Config::get("config.default_history_count"));
+		return view('post-new', compact('post'));
+	}
+
+	public function create($parent_post_id, Request $request)
 	{
 		$v = Validator::make($request->all(), [
-			'parent_post_id' => 'required|min:1|integer',
 			'title' => 'required|max:50',
-			'description' => 'max:'.Config::get('description_length'),
+			'description' => 'max:'.Config::get('config.description_length'),
 			'content' => 'required|max:20000',
 			'terminal' => 'boolean'
 		]);
@@ -45,13 +55,24 @@ class PostController extends Controller {
 				'data' => 0
 			]);
 
+		$parent = Post::find($parent_post_id);
+
 		$input = $request->all();
 		$input['user_id'] = Auth::id();
+
+		if ($parent)
+			$input['parent_post_id'] = $parent->id;
+		else
+			return response()->json([
+				'success' => false,
+				'data' => 1
+			]);
 
 		$post = Post::create($input);
 		return response()->json([
 			'success' => true,
-			'data' => $post
+			'data' => $post,
+			'redirect' => route('post.view', $post->id)
 		]);
 	}
 
@@ -75,7 +96,7 @@ class PostController extends Controller {
 		return response()->json(['success'=>false, 'data'=>1]);
 	}
 
-	public function bookmarks()
+	public function getBookmarks()
 	{
 		$user = Auth::user()->load('bookmarks.post', 'bookmarks.article.rootPost');
 		return view('bookmarks', ['bookmarks' => $user->bookmarks]);

@@ -20,6 +20,20 @@
 	@show
 </head>
 <body>
+	<div class="nav">
+		<div class="content-wrapper">
+			<div>
+				<a href="/">首页</a>
+				<a href="{{ route('article.create') }}">开篇</a>
+				<a href="{{ route('post.bookmarks') }}">书签</a>
+			</div>
+			<div class="right">
+				<a class="avatar"><img src="http://i6.qhimg.com/t0180ceee9e6e48f327.png"></a>
+				<a>{{ $user->username }}</a>
+				<a>注销</a>
+			</div>
+		</div>
+	</div>
 	<div class="page-content">
 	@section('body')
 

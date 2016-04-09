@@ -14,6 +14,11 @@ jQuery.fn.serializeObject = function () {
     });
     return o;
 };
+var ErrorCode;
+(function (ErrorCode) {
+    ErrorCode[ErrorCode["BadRequest"] = 0] = "BadRequest";
+    ErrorCode[ErrorCode["NotFound"] = 1] = "NotFound";
+})(ErrorCode || (ErrorCode = {}));
 $(document).on('submit', 'form[method=POST]', function () {
     var $this = $(this);
     $.post($this.prop('action'), $this.serializeObject(), function (response) {
@@ -24,9 +29,10 @@ $(document).on('submit', 'form[method=POST]', function () {
                 location.href = response.redirect;
         }
         else {
-            $this.find(".fail").show().text(response.message);
+            $this.find(".fail").show().text(response.data);
             $this.find(".success").hide();
         }
     });
+    return false;
 });
 //# sourceMappingURL=global.js.map

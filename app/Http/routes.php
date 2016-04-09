@@ -22,7 +22,7 @@ Route::get('post/{post_id}', [
 
 Route::get('bookmarks', [
     'middleware' => 'auth',
-    'uses' => 'PostController@bookmarks',
+    'uses' => 'PostController@getBookmarks',
     'as' => 'post.bookmarks'
 ]);
 
@@ -47,10 +47,20 @@ Route::post('post/{post_id}/unbookmark', [
 	'as' => 'post.unbookmark'
 ]);
 
-Route::post('post', ['middleware' => 'auth', 'uses' => 'PostController@create']);
+Route::get('post/{parent_post_id}/new', [
+    'middleware' => 'auth', 
+    'uses' => 'PostController@getCreate',
+    'as' => 'post.create'
+]);
+Route::post('post/{parent_post_id}/new', ['middleware' => 'auth', 'uses' => 'PostController@create']);
 Route::get('post/{post_id}/ancestor', 'PostController@getAncestors');
 
-Route::post('article', ['middleware' => 'auth', 'uses' => 'ArticleController@create']);
+Route::get('article/new', [
+    'middleware' => 'auth',
+    'uses' => 'ArticleController@getCreate',
+    'as' => 'article.create'
+]);
+Route::post('article/new', ['middleware' => 'auth', 'uses' => 'ArticleController@create']);
 Route::get('article/{article_id}', 'ArticleController@get');
 Route::post('article/{article_id}/tag', ['middleware' => 'auth', 'uses' => 'ArticleController@addTag']);
 

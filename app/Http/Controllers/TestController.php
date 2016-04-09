@@ -1,7 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \Auth;
+use View;
+use Auth;
 use App\User;
 
 class TestController extends Controller {
@@ -24,7 +25,7 @@ class TestController extends Controller {
 	 */
 	public function __construct()
 	{
-
+		View::share(['user' => Auth::user()]);
 	}
 
 	/**

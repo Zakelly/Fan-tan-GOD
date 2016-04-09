@@ -5,6 +5,7 @@ use App\Post;
 use App\Tag;
 use App\Bookmark;
 use Illuminate\Http\Request;
+use View;
 use Auth;
 
 class ArticleController extends Controller {
@@ -16,7 +17,13 @@ class ArticleController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('auth');
+		//$this->middleware('auth');
+		View::share(['user' => Auth::user()]);
+	}
+	
+	public function getCreate()
+	{
+		return view('post-new');
 	}
 
 	public function create(Request $request)
@@ -29,9 +36,10 @@ class ArticleController extends Controller {
 		$article = Article::create(['root_post_id' => $post->id]);
 		$post->article_id = $article->id;
 		$post->save();
-		return json_encode([
+		return response()->json([
 			'success' => true,
-			'data' => $post
+			'data' => $post,
+			'redirect' => route('post.view', $post->id)
 		]);
 	}
 
@@ -42,7 +50,7 @@ class ArticleController extends Controller {
 		$tag = Tag::findOrCreateUniqueByName($tagName);
 		$article->addTag($tag->id);
 
-		return json_encode([
+		return response()->json([
 			'success' => true,
 			'data' => $article
 		]);

@@ -79,6 +79,7 @@ $border-gray: 1px solid $color-border-gray;
 		margin: 0;
 		border: $border-gray;
 		> li {
+			cursor: default;
 			position: relative;
 			display: inline-block;
 			background: #f2f2eb;
@@ -159,7 +160,7 @@ $border-gray: 1px solid $color-border-gray;
 			margin: 0 auto;
 			text-align: right;
 		}
-		a.button {
+		.button {
 			display: inline-block;
 			width: 100px;
 			height: 30px;

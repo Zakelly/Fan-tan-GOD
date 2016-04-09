@@ -5,7 +5,7 @@
 @section('head')
     @parent
     <link href="{{ asset('/css/bookmark.css') }}" rel="stylesheet" />
-@stop
+    @stop
 
 @section('body')
     @parent
@@ -32,4 +32,4 @@
             return false;
         }
     </script>
-@stop
+    @stop
