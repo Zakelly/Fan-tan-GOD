@@ -93,6 +93,7 @@ $border-gray: 1px solid $color-border-gray;
 			text-align: center;
 			transition: height 0.4s;
 			-webkit-transition: height 0.4s; /* Safari 和 Chrome */
+			overflow: hidden;
 
 			&:not(:first-child) {
 				margin-top: -2px;
