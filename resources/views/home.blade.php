@@ -11,7 +11,7 @@
     @parent
     <div class="boards">
         <div class="column">
-            <a class="section" href="/post/5">
+            <a class="section" href="/post/11">
                 <p class="title">我的妹妹不可能这么可爱</p>
                 <p class="description">《我的妹妹哪有这么可爱！》是由日本轻小说家伏见司创作、插画家神崎广负责插画、电击文库刊行的轻小说。官方日文简称《俺の妹》或《俺妹》，中文简称《我妹》、《我的妹妹》 或《俺妹》 。单行本累计发行超过500万部</p>
                 <div class="info">
