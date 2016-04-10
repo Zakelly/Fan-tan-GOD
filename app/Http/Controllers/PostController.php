@@ -27,7 +27,10 @@ class PostController extends Controller {
 	{
 		$post = Post::withContent()->with('childPosts', 'article', 'user')->findOrFail($post_id);
 		$post->loadAncestors(Config::get("config.default_history_count"));
-		$bookmarked = Bookmark::findUniqueByUserAndPost(Auth::user(), $post);
+		if (Auth::user())
+			$bookmarked = Bookmark::findUniqueByUserAndPost(Auth::user(), $post);
+		else
+			$bookmarked = false;
 		return view("read", compact('post', 'bookmarked'));
 	}
 
