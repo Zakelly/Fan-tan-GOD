@@ -39,7 +39,7 @@
         <div class="controls">
             <div class="content-wrapper">
                 <button class="button primary" type="submit">保存</button>
-                <a class="button">返回</a>
+                <a class="button" onclick="history.back()">返回</a>
             </div>
         </div>
     </form>
